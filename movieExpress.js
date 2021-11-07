@@ -4,6 +4,7 @@ const app = express();
 const Film = require('./connect');
 const ejs = require('ejs'); 
 const Record = require('./connect');
+const port = process.env.PORT || 3000 ;
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -136,6 +137,6 @@ app.get('/editMovie', (req, res) =>{
     res.redirect(req.get('referer'));
 });//close editmovie
 
-app.listen(5000, () => {
+app.listen(port, () => {
     console.log('Server listening to port 5000');
 })
