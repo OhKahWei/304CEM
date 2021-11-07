@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Review Page </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        h1 
+        {
+            font-family: Poppins, Helvetica, Arial, sans-serif;
+            font-weight:bold;
+        }
+        p
+        {
+            font-size: 17px;
+            font-weight:bold;
+        }
+        .bg-img img
+        {
+                
+            
+
+            /*min-height: 880px;*/
+            height: 100%;
+            width: 100%;
+            
+            
+
+            /* Center and scale the image nicely */
+           background-position: center;
+            background-repeat: no-repeat; 
+            background-size: cover;
+
+            /* Needed to position the navbar */
+            position: relative;
+        }
+        .headertitle
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Poppins, Helvetica, Arial, sans-serif;
+            font-size: 70px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+
+        }
+        .headertitle form input[type=text]
+        {
+
+            font-family: Poppins, Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            width:100%; 
+            height: 50px; 
+            background: rgb(0,0,0);
+            border:none;
+            border-bottom:2px solid white;
+
+
+        }
+        .headertitle form input[type=text]:focus
+        {
+            outline: none;
+        }
+
+        .headertitle form input[type=submit]
+        {
+
+            font-family: Poppins, Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            width:100%;
+            margin-top: 20px; 
+            height:40px;
+            border-radius: 5px;
+            background: rgb(0,0,0);
+            border:2px solid white;
+
+        }
+        .headertitle form input[type=submit]:hover
+        {
+
+            transition:.5s;
+            background-color: white;
+            color: black;
+            border:2px solid black;
+            border-radius:15px;
+
+        }
+        .headertitle h1
+        {
+            font-size: 80px;
+        }
+        
+        th, td
+        {
+        border: 1px solid black;
+        border-color: #f7db87;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 20px;
+        font-weight: bold;
+    
+        }
+        th
+        {
+            text-align: center;
+        }
+        thead
+        {
+            background-color: black;
+            color: white;
+            
+        }
+
+        tr:nth-child(even) 
+        {
+        background-color: #f8dd8d;
+        }
+
+        table
+        {
+            border-collapse: collapse;
+            background-color: #ffc000;
+            margin: auto !important;
+            
+            
+        }
+        ul.products li 
+        {
+            width: 370px; /* adjust the size of the catalog block */
+            display: inline-block; /* this creates the catalog effect */
+            text-align: center; /* align the image to center */
+            background-color:#282828 ; /* background color of each */
+            font-family: Poppins, Helvetica, Arial, sans-serif;
+            border-radius: 10px; /* rounded borders effect */
+            border: 2px solid #585858; /* border and color */
+            margin-left: 50px;
+            margin-top:20px;
+        }
+        ul.products h4 
+        {
+            color: white;
+            text-align: center;
+        }
+        ul.products form input[type=submit]
+        {
+
+            font-family: Poppins, Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            width:50%;
+            margin-top: 20px; 
+            height:40px;
+            border-radius: 5px;
+            background: rgb(0,0,0);
+            border:2px solid white;
+
+        }
+        ul.products form input[type=submit]:hover
+        {
+
+            transition:.5s;
+            background-color: white;
+            color: black;
+            border:2px solid black;
+            border-radius:15px;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-img">
+        <img src="/movie2.jpg" >
+        <div class="headertitle">
+            <h1> Search for Movies </h1>
+                <form class="addMovie" action="/getMovie" method="get">
+                    <input type="text" name="title" placeholder="Insert the movie name:" required>
+                    <input type="submit" value="Search" >
+                </form>
+        </div>
+    </div>
+    <div style = "padding: 40px;">
+        <h1 style="text-align:center"> List of movies </h1>
+        <ul class="products">
+            <% searchResult.forEach(function(dat) { %>
+            <li><img src="<%= dat.image%>" width="360" height="260"/>
+        <h4><%= dat.title %></h4>
+        <form class="addMovie" action="/addMovie" method="get">
+            <input type="text" name="title" value="<%= dat.title %>" hidden>
+            <input type="submit" value="Add to favourite" >
+        </form>
+        </li>
+        <!-- add more list items -->
+        <% }); %>
+    </ul>
+
+    <br><br>
+    <h1 style="text-align:center"> Favourite movies </h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Movie Title</th>
+            <th scope="col">MPAA Rating</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Movie Poster</th>
+            <th scope="col">IMDB Rating</th>
+            <th scope="col">Your Rating</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+       
+
+        <tbody>
+        <%moviesList.forEach(movie => {%>
+            <tr>
+                <th scope="row"><%= movie._id %></th>
+                <td><%= movie.movietitle %></td>
+                <td><%= movie.mpaa %></td>
+                <td><%= movie.summary %></td>
+                <td><img src="<%= movie.article %>" width="440" height="293"></td>
+                <td><%= movie.imdb %>/10</td>
+                <td><%= movie.rotten %>/100</td>
+                <td><a href="/deleteMovie?title=<%= movie._id %>">Delete</a></td>
+                
+            </tr>
+        <%})%>
+        </tbody>
+
+      </table>
+      <br><br>
+      <div class="editMovie">
+        <h1 style="text-align:center">Rate the movies</h1>
+
+        <form class="editMovie" action="/editMovie" method="get">
+
+            <select name="title" style="width:100%; text-align:center; height:40px; border-radius: 15px;">
+                <option value="" hidden> Movie Name</option>
+                <%moviesList.forEach(movie => {%>
+                    <option value="<%= movie._id %>"><%= movie.movietitle %></option>
+                <%})%>
+            </select>
+            <br><br>
+            <p>Rating:</p> <input type="number" name="data" min="0" max="100" placeholder="0-100" style="width:40%" required>
+            <input class="submitBtn" type="submit" value="Update" style="width:10%">
+        </form>
+    </div>
+    </div>
+</html>
